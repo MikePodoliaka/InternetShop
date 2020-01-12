@@ -4,7 +4,6 @@ import internetShop.lib.Dao;
 import internetShop.dao.Storage;
 import internetShop.dao.UserDao;
 import internetShop.model.User;
-import internetShop.web.IdGenerator;
 
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -14,10 +13,8 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User create(User user) {
-        User newUser = user;
-        newUser.setUserId(IdGenerator.getNewUserId());
-        Storage.users.add(newUser);
-        return newUser;
+       Storage.users.add(user);
+        return user;
     }
 
     @Override
@@ -26,27 +23,24 @@ public class UserDaoImpl implements UserDao {
                 .filter(u -> u.getUserId().equals(userId))
                 .findFirst()
                 .orElseThrow(() -> new NoSuchElementException("Can't find user wit id  " + userId)));
-
     }
 
     @Override
     public User update(User user) {
-        int userPos = 0;
-        for (User u : Storage.users) {
-            if (u.getUserId().equals(user.getUserId())) {
-                break;
-            }
-            userPos++;
-        }
-        Storage.users.set(userPos, user);
+       Optional<User> updateUser=get(user.getUserId());
+       updateUser.get().setName(user.getName());
+       updateUser.get().setLogin(user.getLogin());
+       updateUser.get().setPassword(user.getPassword());
         return user;
     }
 
     @Override
-    public boolean delete(Long userId) {
-        Optional opUser = Optional.ofNullable(Storage.users.stream()
-                .filter(i -> i.getUserId().equals(userId)).findFirst());
-        return Storage.users.remove(opUser);
+    public void delete (Long userId) {
+        Storage.users.removeIf(u->u.getUserId().equals(userId));
+
+        //Optional opUser = Optional.ofNullable(Storage.users.stream()
+         //       .filter(i -> i.getUserId().equals(userId)).findFirst());
+       // return Storage.users.remove(opUser);
     }
 
     @Override

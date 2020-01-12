@@ -3,10 +3,25 @@ package internetShop.model;
 import java.util.List;
 
 public class User {
+    private static Long idGenerator = 0L;
     private Long userId;
     private String name;
     private String login;
     private String password;
+
+    public User() {
+        userId = idGenerator++;
+    }
+
+    public Bucket getUserBucket() {
+        return userBucket;
+    }
+
+    public void setUserBucket(Bucket userBucket) {
+        this.userBucket = userBucket;
+    }
+
+    private Bucket userBucket;
 
 
     public Long getUserId() {
@@ -40,6 +55,7 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
 
     @Override
     public String toString() {

@@ -27,19 +27,18 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User update(User user) {
-        return null;
+        return userDao.update(user);
     }
 
     @Override
-    public boolean delete(Long userId) {
-        return userDao.delete(userId);
+    public void delete(Long userId) {
+        userDao.delete(userId);
     }
 
     @Override
     public boolean delete(User user) {
         return userDao.delete(user);
     }
-
 
     @Override
     public List<User> getAll() {

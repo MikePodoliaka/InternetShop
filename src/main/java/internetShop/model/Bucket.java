@@ -4,12 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Bucket {
+    private static Long idGenerator = 0L;
+
     private Long userId;
     private Long bucketId;
-    private List <Item> items;
+    private List<Item> items;
 
-    public Bucket() {
-        items=new ArrayList<>();
+    public Bucket(Long userId) {
+        this.userId = userId;
+        bucketId = idGenerator++;
+        items = new ArrayList<>();
     }
 
     public Long getUserId() {

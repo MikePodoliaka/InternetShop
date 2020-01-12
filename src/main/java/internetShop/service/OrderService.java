@@ -2,7 +2,6 @@ package internetShop.service;
 
 import internetShop.model.Bucket;
 import internetShop.model.Order;
-import internetShop.model.User;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,7 +11,7 @@ public interface OrderService {
 
     Optional<Order> get(Long orderId);
 
-    Order update(Order order);
+    Optional<Order> update(Order order);
 
     boolean delete(Long orderId);
 

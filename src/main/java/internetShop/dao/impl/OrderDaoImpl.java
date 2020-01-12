@@ -4,7 +4,6 @@ import internetShop.lib.Dao;
 import internetShop.dao.OrderDao;
 import internetShop.dao.Storage;
 import internetShop.model.Order;
-import internetShop.web.IdGenerator;
 
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -13,10 +12,8 @@ import java.util.Optional;
 public class OrderDaoImpl implements OrderDao {
     @Override
     public Order create(Order order) {
-        Order newOrder=order;
-        newOrder.setOrderId(IdGenerator.getNewOrderId());
-        Storage.orders.add(newOrder);
-        return newOrder;
+        Storage.orders.add(order);
+        return order;
     }
 
     @Override
@@ -29,16 +26,10 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
-    public Order update(Order order) {
-        int orderPos = 0;
-        for (Order o : Storage.orders) {
-            if (o.getOrderId().equals(order.getOrderId())) {
-                break;
-            }
-            orderPos++;
-        }
-        Storage.orders.set(orderPos, order);
-        return order;
+    public Optional<Order> update(Order order) {
+        Optional<Order> updateOrder=get(order.getOrderId());
+        updateOrder.get().setOrderId(order.getOrderId());
+        return updateOrder;
     }
 
     @Override

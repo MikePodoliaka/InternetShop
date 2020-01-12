@@ -4,7 +4,6 @@ import internetShop.lib.Dao;
 import internetShop.dao.ItemDao;
 import internetShop.dao.Storage;
 import internetShop.model.Item;
-import internetShop.web.IdGenerator;
 
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -13,10 +12,8 @@ import java.util.Optional;
 public class ItemDaoImpl implements ItemDao {
     @Override
     public Item create(Item item) {
-        Item newItem=item;
-        newItem.setItemId(IdGenerator.getNewItemId());
-        Storage.items.add(newItem);
-        return newItem;
+       Storage.items.add(item);
+        return item;
     }
 
     @Override
@@ -29,16 +26,11 @@ public class ItemDaoImpl implements ItemDao {
     }
 
     @Override
-    public Item update(Item item) {
-        int itemPos = 0;
-        for (Item i : Storage.items) {
-            if (i.getItemId().equals(item.getItemId())) {
-                break;
-            }
-            itemPos++;
-        }
-        Storage.items.set(itemPos, item);
-        return item;
+    public Optional<Item> update(Item item) {
+       Optional<Item> updateItem=get(item.getItemId());
+       updateItem.get().setName(item.getName());
+       updateItem.get().setPrice(item.getPrice());
+        return updateItem;
     }
 
     @Override

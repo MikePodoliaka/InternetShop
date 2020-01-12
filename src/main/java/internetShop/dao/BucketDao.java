@@ -12,7 +12,7 @@ public interface BucketDao {
 
     List<Bucket> getAll();
 
-    Bucket update(Bucket bucket);
+    Optional<Bucket> update(Bucket bucket);
 
     boolean deleteById(Long bucketId);
 

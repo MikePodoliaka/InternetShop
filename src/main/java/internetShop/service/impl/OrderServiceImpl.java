@@ -28,7 +28,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order update(Order order) {
+    public Optional<Order> update(Order order) {
         return orderDao.update(order);
     }
 

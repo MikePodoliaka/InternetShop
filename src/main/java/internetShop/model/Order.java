@@ -1,14 +1,19 @@
 package internetShop.model;
 
-import internetShop.service.OrderService;
-import internetShop.web.IdGenerator;
-
 import java.util.List;
 
 public class Order {
+    private static Long idGenerator=0L;
+
     private Long orderId;
     private Long userId;
     private List<Item> items;
+
+    public Order(List<Item> items, Long userId){
+        this.userId=userId;
+        this.items=items;
+        orderId=idGenerator++;
+    }
 
     public Long getOrderId() {
         return orderId;

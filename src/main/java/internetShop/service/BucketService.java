@@ -2,7 +2,6 @@ package internetShop.service;
 
 import internetShop.model.Bucket;
 import internetShop.model.Item;
-import internetShop.model.User;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,7 +11,7 @@ public interface BucketService {
 
     Optional<Bucket> get(Long bucketId);
 
-    Bucket update(Bucket bucket);
+    Optional<Bucket> update(Bucket bucket);
 
     boolean delete(Long bucketId);
 

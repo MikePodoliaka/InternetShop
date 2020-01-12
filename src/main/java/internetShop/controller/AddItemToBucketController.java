@@ -27,9 +27,14 @@ public class AddItemToBucketController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-       Long userId= (Long) req.getSession(true).getAttribute("userId");
-       Optional<User> user=userService.get(USER_ID);
-       // Bucket bucket=user.
+        Long userId = (Long) req.getSession(true).getAttribute("USER_ID");
+        Optional<User> user = userService.get(USER_ID);
+        Bucket bucket = user.get().getUserBucket();
+
+        String itemID = req.getParameter("itemId");
+
+       // bucketService.addItem(bucket.getBucketId(), Long.valueOf(itemID));
+        resp.sendRedirect(req.getContextPath() + "shop");
 
     }
 }

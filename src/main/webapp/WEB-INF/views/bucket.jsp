@@ -2,9 +2,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Index</title>
+    <title>Bucket</title>
 </head>
 <body>
-Hello World!
+Hello from Bucket!
 </body>
 </html>
