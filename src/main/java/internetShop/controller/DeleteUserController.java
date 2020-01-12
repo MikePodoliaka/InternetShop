@@ -1,7 +1,6 @@
 package internetShop.controller;
 
 import internetShop.lib.Inject;
-import internetShop.model.User;
 import internetShop.service.UserService;
 
 import javax.servlet.ServletException;
@@ -10,23 +9,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class RegistrationController extends HttpServlet {
+public class DeleteUserController extends HttpServlet {
     @Inject
     private static UserService userService;
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        req.getRequestDispatcher("/WEB-INF/views/register.jsp").forward(req,resp);
-    }
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
-            throws ServletException, IOException {
-        User newUser=new User();
-        newUser.setLogin(req.getParameter("login"));
-        newUser.setPassword(req.getParameter("psw"));
-        newUser.setName(req.getParameter("user_name"));
-        userService.create(newUser);
+        String userId=req.getParameter("user_id");
+        userService.delete(Long.valueOf(userId));
 
         resp.sendRedirect (req.getContextPath()+"/allUser");
     }

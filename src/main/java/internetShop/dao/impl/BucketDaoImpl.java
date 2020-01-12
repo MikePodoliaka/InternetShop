@@ -4,7 +4,6 @@ import internetShop.dao.BucketDao;
 import internetShop.dao.Storage;
 import internetShop.lib.Dao;
 import internetShop.model.Bucket;
-import internetShop.web.IdGenerator;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -14,10 +13,8 @@ import java.util.Optional;
 public class BucketDaoImpl implements BucketDao {
     @Override
     public Bucket create(Bucket bucket) {
-        Bucket newpBucket = bucket;
-        newpBucket.setBucketId(IdGenerator.getNewBucketId());
-        Storage.buckets.add(newpBucket);
-        return newpBucket;
+       Storage.buckets.add(bucket);
+        return bucket;
     }
 
     @Override
@@ -32,21 +29,10 @@ public class BucketDaoImpl implements BucketDao {
     }
 
     @Override
-    public List<Bucket> getAll() {
-        return Storage.buckets;
-    }
-
-    @Override
-    public Bucket update(Bucket bucket) {
-        int bucketPos = 0;
-        for (Bucket b : Storage.buckets) {
-            if (b.getBucketId().equals(bucket.getBucketId())) {
-                break;
-            }
-            bucketPos++;
-        }
-        Storage.buckets.set(bucketPos, bucket);
-        return bucket;
+    public Optional<Bucket> update(Bucket bucket) {
+       Optional<Bucket> updateBucket=get(bucket.getBucketId());
+       updateBucket.get().setItems(bucket.getItems());
+        return updateBucket;
     }
 
     @Override
@@ -66,4 +52,10 @@ public class BucketDaoImpl implements BucketDao {
     public boolean delete(Bucket bucket) {
         return Storage.buckets.remove(bucket);
     }
+
+    @Override
+    public List<Bucket> getAll() {
+        return Storage.buckets;
+    }
 }
+

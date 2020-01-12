@@ -27,6 +27,38 @@
         <servlet-name>registration</servlet-name>
         <url-pattern>/registration</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>bucket</servlet-name>
+        <servlet-class>internetShop.controller.AddItemToBucketController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>bucket</servlet-name>
+        <url-pattern>/bucket</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>allUser</servlet-name>
+        <servlet-class>internetShop.controller.AllUserController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>allUser</servlet-name>
+        <url-pattern>/allUser</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>deleteUser</servlet-name>
+        <servlet-class>internetShop.controller.DeleteUserController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>deleteUser</servlet-name>
+        <url-pattern>/deleteUser</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>addItem</servlet-name>
+        <servlet-class>internetShop.controller.AddItemController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>addItem</servlet-name>
+        <url-pattern>/addItem</url-pattern>
+    </servlet-mapping>
     <listener>
         <listener-class>internetShop.controller.InjectInitializer</listener-class>
     </listener>

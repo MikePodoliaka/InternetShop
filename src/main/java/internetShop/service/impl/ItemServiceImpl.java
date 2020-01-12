@@ -26,7 +26,7 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public Item update(Item item) {
+    public Optional<Item> update(Item item) {
         return itemDao.update(item);
     }
 
