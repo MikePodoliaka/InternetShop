@@ -32,5 +32,8 @@
         <p>Already have an account? <a href="#">Sign in</a>.</p>
     </div>
 </form>
+<br>
+<a href="${pageContext.request.contextPath}/index">Back to main</a>
+</br>
 </body>
 </html>

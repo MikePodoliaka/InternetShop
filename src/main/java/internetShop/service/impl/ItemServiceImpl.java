@@ -8,6 +8,7 @@ import internetShop.model.Item;
 import internetShop.service.ItemService;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -21,8 +22,9 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public Optional<Item> get(Long id) {
-        return itemDao.get(id);
+    public Item get(Long id) {
+
+        return itemDao.get(id).orElseThrow(()->new NoSuchElementException("Can't find item"));
     }
 
     @Override

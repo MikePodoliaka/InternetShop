@@ -8,7 +8,7 @@ import java.util.Optional;
 public interface UserService {
     User create(User user);
 
-    Optional<User> get(Long userId);
+    User get(Long userId);
 
     User update(User user);
 

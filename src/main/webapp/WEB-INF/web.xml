@@ -28,8 +28,16 @@
         <url-pattern>/registration</url-pattern>
     </servlet-mapping>
     <servlet>
-        <servlet-name>bucket</servlet-name>
+        <servlet-name>addItemToBucket</servlet-name>
         <servlet-class>internetShop.controller.AddItemToBucketController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>addItemToBucket</servlet-name>
+        <url-pattern>/addItemToBucket</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>bucket</servlet-name>
+        <servlet-class>internetShop.controller.CreateBucketController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>bucket</servlet-name>
@@ -58,6 +66,30 @@
     <servlet-mapping>
         <servlet-name>addItem</servlet-name>
         <url-pattern>/addItem</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>Order</servlet-name>
+        <servlet-class>internetShop.controller.CompleteOrderController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Order</servlet-name>
+        <url-pattern>/order</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>Delete Item From Bucket</servlet-name>
+        <servlet-class>internetShop.controller.DeleteItemFromBucket</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Delete Item From Bucket</servlet-name>
+        <url-pattern>/deleteItem</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>getOrderToUserId</servlet-name>
+        <servlet-class>internetShop.controller.GetOrderToUserIdController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>getOrderToUserId</servlet-name>
+        <url-pattern>/getOrder</url-pattern>
     </servlet-mapping>
     <listener>
         <listener-class>internetShop.controller.InjectInitializer</listener-class>
