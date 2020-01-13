@@ -8,7 +8,7 @@ import java.util.Optional;
 public interface ItemService {
     Item create(Item item);
 
-    Optional<Item> get(Long id);
+    Item get(Long id);
 
     Optional<Item> update(Item item);
 

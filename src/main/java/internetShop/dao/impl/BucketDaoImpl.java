@@ -49,8 +49,9 @@ public class BucketDaoImpl implements BucketDao {
     }
 
     @Override
-    public boolean delete(Bucket bucket) {
-        return Storage.buckets.remove(bucket);
+    public void delete(Long id) {
+
+        Storage.buckets.removeIf(bucket1->bucket1.getBucketId().equals(id));
     }
 
     @Override

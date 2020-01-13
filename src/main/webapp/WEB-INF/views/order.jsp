@@ -1,24 +1,18 @@
-<jsp:useBean id="bucket" scope="request" type="internetShop.model.Bucket"/>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<jsp:useBean id="items" scope="request" type="java.util.List<internetShop.model.Item>"/>
+<jsp:useBean id="order_id" scope="request" type="java.lang.Long"/>
 <html>
 <head>
-    <title>Bucket</title>
+    <title>Your Order</title>
 </head>
 <body>
-<br>
-<a href="${pageContext.request.contextPath}/getAllItems">Go back to items</a>
-</br>
-Bucket:
+Order:
 <table border="1">
     <tr>
-        <th>Id</th>
-        <th>Name</th>
-        <th>Price</th>
-        <th>Delete</th>
+        <td>Order ID: ${order_id}</td>
     </tr>
-    <c:forEach var="item" items="${bucket.items}">
+    <c:forEach var="item" items="${items}">
         <tr>
             <td>
                 <c:out value="${item.itemId}"/>
@@ -29,16 +23,10 @@ Bucket:
             <td>
                 <c:out value="${item.price}"/>
             </td>
-            <td>
-                <a href="/internetShopPM_war_exploded/deleteItem?item_id=${item.itemId}">DELETE</a>
-            </td>
-
         </tr>
     </c:forEach>
+
 </table>
-<br>
-<a href="${pageContext.request.contextPath}/order">Complete Order</a>
-</br>
 <br>
 <a href="${pageContext.request.contextPath}/index">Back to main</a>
 </br>
