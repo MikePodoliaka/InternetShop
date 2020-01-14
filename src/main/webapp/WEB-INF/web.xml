@@ -91,22 +91,7 @@
         <servlet-name>getOrderToUserId</servlet-name>
         <url-pattern>/getOrder</url-pattern>
     </servlet-mapping>
-    <servlet>
-        <servlet-name>LoginController</servlet-name>
-        <servlet-class>internetShop.controller.LoginController</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>LoginController</servlet-name>
-        <url-pattern>/login</url-pattern>
-    </servlet-mapping>
-    <filter>
-        <filter-name>Log Filter</filter-name>
-        <filter-class>internetShop.web.filters.LoginFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>Log Filter</filter-name>
-        <url-pattern>/allUser</url-pattern>
-    </filter-mapping>
+
     <listener>
         <listener-class>internetShop.controller.InjectInitializer</listener-class>
     </listener>
