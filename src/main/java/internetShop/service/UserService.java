@@ -1,5 +1,6 @@
 package internetShop.service;
 
+import internetShop.exeptions.AuthorizationException;
 import internetShop.model.User;
 
 import java.util.List;
@@ -17,4 +18,8 @@ public interface UserService {
     boolean delete(User user);
 
     public List<User> getAll();
+
+    Optional<User> getByToken(String token);
+
+    User login(String login, String password) throws AuthorizationException;
 }

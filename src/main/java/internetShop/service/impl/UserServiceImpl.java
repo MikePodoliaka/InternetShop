@@ -1,5 +1,6 @@
 package internetShop.service.impl;
 
+import internetShop.exeptions.AuthorizationException;
 import internetShop.lib.Inject;
 import internetShop.lib.Service;
 import internetShop.dao.Storage;
@@ -10,6 +11,7 @@ import internetShop.service.UserService;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -18,13 +20,16 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User create(User user) {
+user.setToken(getToken());
         return userDao.create(user);
     }
-
+private String getToken () {
+        return UUID.randomUUID().toString();
+}
     @Override
     public User get(Long id) {
 
-        return userDao.get(id).orElseThrow(()->new NoSuchElementException("Can't find User with id"+id));
+        return userDao.get(id).orElseThrow(() -> new NoSuchElementException("Can't find User with id" + id));
     }
 
     @Override
@@ -45,5 +50,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> getAll() {
         return Storage.users;
+    }
+
+    @Override
+    public Optional<User> getByToken(String token) {
+        return userDao.getByToken(token);
+    }
+
+    @Override
+    public User login(String login, String password) throws AuthorizationException {
+        return userDao.login(login, password);
     }
 }
