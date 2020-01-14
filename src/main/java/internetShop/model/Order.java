@@ -9,16 +9,6 @@ public class Order {
     private Long userId;
     private List<Item> items;
 
-    public Double getAmount() {
-        return amount;
-    }
-
-    public void setAmount(Double amount) {
-        this.amount = amount;
-    }
-
-    private Double amount;
-
     public Order(List<Item> items, Long userId){
         this.userId=userId;
         this.items=items;

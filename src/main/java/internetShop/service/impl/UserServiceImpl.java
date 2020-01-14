@@ -8,7 +8,6 @@ import internetShop.model.User;
 import internetShop.service.UserService;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -22,9 +21,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User get(Long id) {
-
-        return userDao.get(id).orElseThrow(()->new NoSuchElementException("Can't find User with id"+id));
+    public Optional<User> get(Long id) {
+        return userDao.get(id);
     }
 
     @Override

@@ -16,6 +16,6 @@ public interface BucketDao {
 
     boolean deleteById(Long bucketId);
 
-    void delete(Long id);
+    boolean delete(Bucket bucket);
 
 }
