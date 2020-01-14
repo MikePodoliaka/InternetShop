@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.List;
 
 public class GetOrderToUserIdController extends HttpServlet {
-    private static Long USER_ID=1L;
+
     @Inject
     private static UserService userService;
     @Inject
@@ -22,8 +22,9 @@ public class GetOrderToUserIdController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        User user=userService.get(USER_ID);
-        List<Order> orderList=orderService.getOrdersForUser(USER_ID);
+        Long userId = (Long) req.getSession(true).getAttribute("userId");
+        User user=userService.get(userId);
+        List<Order> orderList=orderService.getOrdersForUser(userId);
 
         req.setAttribute("orders", orderList);
         req.getRequestDispatcher("/WEB-INF/views/userOrder.jsp").forward(req,resp);

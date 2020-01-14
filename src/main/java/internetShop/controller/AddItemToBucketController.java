@@ -16,7 +16,6 @@ import java.io.IOException;
 import java.util.Optional;
 
 public class AddItemToBucketController extends HttpServlet {
-    private static final Long USER_ID = 1L;
 
     @Inject
     private static BucketService bucketService;
@@ -29,7 +28,10 @@ public class AddItemToBucketController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-       Bucket bucket = bucketService.getByUserId(USER_ID);
+        Long userId = (Long) req.getSession(true).getAttribute("userId");
+        User user = userService.get(userId);
+
+        Bucket bucket = bucketService.getByUserId(userId);
 
         String itemId = req.getParameter("item_id");
         Item item = itemService.get(Long.valueOf(itemId));

@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class DeleteItemFromBucket extends HttpServlet {
-    private static Long USER_ID = 1L;
+
     @Inject
     private static BucketService bucketService;
     @Inject
@@ -22,8 +22,8 @@ public class DeleteItemFromBucket extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-
-        Bucket bucket = bucketService.getByUserId(USER_ID);
+        Long userId = (Long) req.getSession(true).getAttribute("userId");
+        Bucket bucket = bucketService.getByUserId(userId);
         String itemID = req.getParameter("item_id");
         Item item = itemService.get(Long.valueOf(itemID));
 

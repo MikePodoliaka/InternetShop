@@ -6,10 +6,7 @@ import internetShop.model.User;
 import internetShop.service.UserService;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 import java.io.IOException;
 
 public class LoginController extends HttpServlet {
@@ -30,6 +27,10 @@ public class LoginController extends HttpServlet {
         String password = req.getParameter("psw");
         try {
             User user=userService.login(login, password);
+
+            HttpSession session=req.getSession(true);
+            session.setAttribute("userId", user.getUserId());
+
             Cookie cookie=new Cookie("LogPM",user.getToken());
             resp.addCookie(cookie);
             resp.sendRedirect (req.getContextPath()+"/index");
