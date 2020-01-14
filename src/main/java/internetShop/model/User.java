@@ -9,6 +9,7 @@ public class User {
     private String login;
     private String password;
     private String token;
+    private Bucket userBucket;
 
     public String getToken() {
         return token;
@@ -29,9 +30,6 @@ public class User {
     public void setUserBucket(Bucket userBucket) {
         this.userBucket = userBucket;
     }
-
-    private Bucket userBucket;
-
 
     public Long getUserId() {
         return userId;
