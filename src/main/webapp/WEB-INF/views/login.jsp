@@ -18,16 +18,14 @@
         <label for="psw"><b>Password</b></label>
         <input type="password" placeholder="Enter Password" name="psw" required>
 
-
         <hr>
 
-
-        <button type="submit" class="registerbtn">Register</button>
+        <button type="submit" class="registerbtn">Log</button>
     </div>
 
-    <div class="container signin">
-        <p>Already have an account? <a href="#">Sign up</a>.</p>
-    </div>
 </form>
+<br>
+<a href="${pageContext.request.contextPath}/registration">Back to registration</a>
+</br>
 </body>
 </html>

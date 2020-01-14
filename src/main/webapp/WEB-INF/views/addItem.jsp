@@ -19,7 +19,7 @@
         <input type="text" placeholder="Enter item price" name="item_price" required>
         <hr>
 
-               <button type="submit" class="addItembtn">Register</button>
+               <button type="submit" class="addItembtn">Submit</button>
     </div>
 
     <div class="container signin">

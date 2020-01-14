@@ -99,6 +99,14 @@
         <servlet-name>Login_Controller</servlet-name>
         <url-pattern>/login</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>DeleteOrder</servlet-name>
+        <servlet-class>internetShop.controller.DeleteOrderController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeleteOrder</servlet-name>
+        <url-pattern>/deleteOrder</url-pattern>
+    </servlet-mapping>
     <filter>
         <filter-name>Log Filter</filter-name>
         <filter-class>internetShop.web.filters.LoginFilter</filter-class>
@@ -106,6 +114,7 @@
     <filter-mapping>
         <filter-name>Log Filter</filter-name>
         <url-pattern>/allUser</url-pattern>
+        <url-pattern>/addItem</url-pattern>
     </filter-mapping>
     <listener>
         <listener-class>internetShop.controller.InjectInitializer</listener-class>

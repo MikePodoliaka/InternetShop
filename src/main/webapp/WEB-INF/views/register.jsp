@@ -28,10 +28,10 @@
         <button type="submit" class="registerbtn">Register</button>
     </div>
 
-    <div class="container signin">
-        <p>Already have an account? <a href="#">Sign in</a>.</p>
-    </div>
 </form>
+<br>
+<a href="${pageContext.request.contextPath}/login">Already have an account?</a>
+</br>
 <br>
 <a href="${pageContext.request.contextPath}/index">Back to main</a>
 </br>
