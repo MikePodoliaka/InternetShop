@@ -13,7 +13,6 @@ Items:
         <th>Name</th>
         <th>Price</th>
         <th>Id</th>
-        <th>AddToBucket</th>
     </tr>
     <c:forEach var="item" items="${items}">
         <tr>
@@ -26,15 +25,9 @@ Items:
             <td>
                 <c:out value="${item.itemId}"/>
             </td>
-            <td>
-                <a href="${pageContext.request.contextPath}/addItemToBucket?item_id=${item.itemId}">ADD</a>
-            </td>
 
         </tr>
     </c:forEach>
 </table>
-<br>
-<a href="${pageContext.request.contextPath}/index">Back to main</a>
-</br>
 </body>
 </html>

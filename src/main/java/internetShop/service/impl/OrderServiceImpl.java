@@ -5,9 +5,7 @@ import internetShop.lib.Service;
 import internetShop.dao.OrderDao;
 import internetShop.dao.Storage;
 import internetShop.model.Bucket;
-import internetShop.model.Item;
 import internetShop.model.Order;
-import internetShop.model.User;
 import internetShop.service.OrderService;
 
 import java.util.List;
@@ -35,16 +33,14 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void delete(Long orderId) {
-
-         orderDao.delete(orderId);
+    public boolean delete(Long orderId) {
+        return orderDao.delete(orderId);
     }
 
     @Override
-    public Order completeOrder(List<Item>items, User user) {
-        Order order = new Order(items, user.getUserId());
-        order.setItems(items);
-        orderDao.create(order);
+    public Order completeOrder(Bucket bucket) {
+        Order order = new Order(bucket.getUserId(), bucket.getItems());
+        Storage.orders.add(order);
         return order;
     }
 
