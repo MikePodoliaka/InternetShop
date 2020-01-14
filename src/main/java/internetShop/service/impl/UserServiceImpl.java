@@ -28,7 +28,7 @@ private String getToken () {
 }
     @Override
     public User get(Long id) {
-
+return userDao.get(id).orElseThrow(()-> new NoSuchElementException("Can't find User with id"+id));
     }
 
     @Override
