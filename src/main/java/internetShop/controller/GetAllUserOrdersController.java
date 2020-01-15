@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-public class GetOrderToUserIdController extends HttpServlet {
+public class GetAllUserOrdersController extends HttpServlet {
 
     @Inject
     private static UserService userService;
@@ -27,7 +27,7 @@ public class GetOrderToUserIdController extends HttpServlet {
         List<Order> orderList=orderService.getOrdersForUser(userId);
 
         req.setAttribute("orders", orderList);
-        req.getRequestDispatcher("/WEB-INF/views/userOrder.jsp").forward(req,resp);
+        req.getRequestDispatcher("/WEB-INF/views/userOrders.jsp").forward(req,resp);
 
     }
 }
