@@ -1,4 +1,3 @@
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:useBean id="orders" scope="request" type="java.util.List<internetShop.model.Order>"/>
@@ -9,11 +8,11 @@
 <body>
 <table border="3">
     <tr>
-        Items:
+        Orders:
     </tr>
     <tr>
         <td>ID</td>
-        <td>Amount</td>
+        <td>Items</td>
     </tr>
     <c:forEach var="order" items="${orders}">
         <tr>
@@ -21,10 +20,10 @@
                 <c:out value="${order.orderId}"/>
             </td>
             <td>
-                <c:out value="${order.amount}"/>
+                <c:out value="${order.items}"/>
             </td>
             <td>
-                <a href="deleteOrder?order_id=${order.orderId}">Delete</a>
+                <a href="/internetShopPM_war_exploded/deleteOrder?order_id=${order.orderId}">Delete</a>
             </td>
         </tr>
     </c:forEach>

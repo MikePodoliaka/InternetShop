@@ -20,5 +20,8 @@
 <br>
 <a href="${pageContext.request.contextPath}/bucket">Show Bucket</a>
 </br>
+<br>
+<a href="${pageContext.request.contextPath}/userOrders">User Orders</a>
+</br>
 </body>
 </html>

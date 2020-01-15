@@ -85,11 +85,11 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>getOrderToUserId</servlet-name>
-        <servlet-class>internetShop.controller.GetOrderToUserIdController</servlet-class>
+        <servlet-class>internetShop.controller.GetAllUserOrdersController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>getOrderToUserId</servlet-name>
-        <url-pattern>/getOrder</url-pattern>
+        <url-pattern>/userOrders</url-pattern>
     </servlet-mapping>
 <servlet>
     <servlet-name>Login_Controller</servlet-name>
