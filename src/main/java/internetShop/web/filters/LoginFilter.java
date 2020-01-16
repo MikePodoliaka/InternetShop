@@ -38,6 +38,7 @@ public class LoginFilter implements Filter {
                 Optional<User> user = userService.getByToken(cookie.getValue());
                 if (user.isPresent()) {
                     logger.info("User" + user.get().getLogin() + "was authenticated");
+
                     filterChain.doFilter(servletRequest, servletResponse);
                     return;
                 }
