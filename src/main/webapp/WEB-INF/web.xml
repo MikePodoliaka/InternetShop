@@ -107,6 +107,22 @@
         <servlet-name>DeleteOrder</servlet-name>
         <url-pattern>/deleteOrder</url-pattern>
     </servlet-mapping>
+<servlet>
+    <servlet-name>InjectDataController</servlet-name>
+    <servlet-class>internetShop.controller.InjectDataController</servlet-class>
+</servlet>
+    <servlet-mapping>
+        <servlet-name>InjectDataController</servlet-name>
+        <url-pattern>/injectRole</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>logoutController</servlet-name>
+        <servlet-class>internetShop.controller.LogoutController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>logoutController</servlet-name>
+        <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
     <filter>
         <filter-name>Log Filter</filter-name>
         <filter-class>internetShop.web.filters.LoginFilter</filter-class>
@@ -115,6 +131,14 @@
         <filter-name>Log Filter</filter-name>
         <url-pattern>/allUser</url-pattern>
         <url-pattern>/addItem</url-pattern>
+    </filter-mapping>
+    <filter>
+        <filter-name>authorizationFilter</filter-name>
+        <filter-class>internetShop.web.filters.AuthorizationFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>authorizationFilter</filter-name>
+        <url-pattern>/allUser</url-pattern>
     </filter-mapping>
     <listener>
         <listener-class>internetShop.controller.InjectInitializer</listener-class>

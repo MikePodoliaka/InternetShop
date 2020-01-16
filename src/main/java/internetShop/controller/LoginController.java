@@ -27,7 +27,6 @@ public class LoginController extends HttpServlet {
         String password = req.getParameter("psw");
         try {
             User user=userService.login(login, password);
-
             HttpSession session=req.getSession(true);
             session.setAttribute("userId", user.getUserId());
 
@@ -36,7 +35,6 @@ public class LoginController extends HttpServlet {
             resp.sendRedirect (req.getContextPath()+"/index");
 
         } catch (AuthorizationException e) {
-            e.printStackTrace();
             req.setAttribute("errorMsg","Incorrect login or password");
             req.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(req, resp);
         }
