@@ -26,7 +26,7 @@ public class AuthorizationFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        protectedUrls.put("/addItem", ADMIN);
+        protectedUrls.put("/allUser", ADMIN);
     }
 
     @Override
@@ -36,22 +36,23 @@ public class AuthorizationFilter implements Filter {
         HttpServletResponse resp = (HttpServletResponse) servletResponse;
 
 
-        Role.RoleName roleName = protectedUrls.get(req.getServletPath());
+        Role.RoleName roleName = protectedUrls.get(req.getServletPath());// Check it roleNameAdmin and roleNameUser
+        Role.RoleName roleNameAdmin=protectedUrls.get(servletRequest); //requestUrl
+        Role.RoleName roleNameUser=protectedUrls.get(servletRequest); //requestUrl
         if (roleName == null) {
-            processAuthenticated(filterChain, req, resp);
+            processAuthorization(filterChain, req, resp);
             return;
         }
 
         Long userId = (Long) req.getSession().getAttribute("userId");
         User user = userService.get(userId);
         if (verifyRole(user, roleName)) {
-            processAuthenticated(filterChain, req, resp);
+            processAuthorization(filterChain, req, resp);
             return;
         } else {
             processDenied(req, resp);
             return;
         }
-
     }
 
     @Override
@@ -61,7 +62,6 @@ public class AuthorizationFilter implements Filter {
 
     private boolean verifyRole(User user, Role.RoleName roleName) {
         return user.getRoles().stream().anyMatch(r -> r.getRoleName().equals(roleName));
-
     }
 
     private void processDenied(HttpServletRequest req, HttpServletResponse resp)
@@ -69,8 +69,7 @@ public class AuthorizationFilter implements Filter {
         req.getRequestDispatcher("/WEB-INF/views/accessDenied.jsp").forward(req, resp);
     }
 
-
-    private void processAuthenticated(FilterChain filterChain, HttpServletRequest req, HttpServletResponse resp)
+    private void processAuthorization(FilterChain filterChain, HttpServletRequest req, HttpServletResponse resp)
             throws IOException, ServletException {
         filterChain.doFilter(req, resp);
     }
