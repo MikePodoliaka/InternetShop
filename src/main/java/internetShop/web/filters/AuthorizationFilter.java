@@ -39,6 +39,7 @@ public class AuthorizationFilter implements Filter {
         Role.RoleName roleName = protectedUrls.get(req.getServletPath());// Check it roleNameAdmin and roleNameUser
         Role.RoleName roleNameAdmin=protectedUrls.get(servletRequest); //requestUrl
         Role.RoleName roleNameUser=protectedUrls.get(servletRequest); //requestUrl
+        Role.RoleName roleNameUser1=protectedUrls.get(servletRequest); //requestUrl
         if (roleName == null) {
             processAuthorization(filterChain, req, resp);
             return;
