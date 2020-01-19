@@ -10,11 +10,14 @@ public class LogoutController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
+        req.getSession().invalidate();
 
-        Cookie cookie = new Cookie(COOKIE, null);
-        cookie.setMaxAge(0);
-        resp.addCookie(cookie);
-
+        for (Cookie cookie : req.getCookies()) {
+            if (cookie.getName().equals("LogPM")) {
+                cookie.setMaxAge(0);
+                resp.addCookie(cookie);
+            }
+        }
         resp.sendRedirect(req.getContextPath() + "/index");
     }
 }

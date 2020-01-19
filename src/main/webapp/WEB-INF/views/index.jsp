@@ -23,5 +23,8 @@
 <br>
 <a href="${pageContext.request.contextPath}/userOrders">User Orders</a>
 </br>
+<br>
+<a href="${pageContext.request.contextPath}/logout">Logout</a>
+</br>
 </body>
 </html>
