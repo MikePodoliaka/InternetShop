@@ -15,11 +15,12 @@ import java.util.Map;
 import java.util.Optional;
 
 import static internetShop.model.Role.RoleName.ADMIN;
+import static internetShop.model.Role.RoleName.USER;
 
 public class AuthorizationFilter implements Filter {
 
     private Map<String, Role.RoleName> protectedUrls = new HashMap<>();
-    private static final String COOKIE = "LogPM";
+    private static final String EMPTY_STRING="";
 
     @Inject
     private static UserService userService;
@@ -27,6 +28,10 @@ public class AuthorizationFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         protectedUrls.put("/allUser", ADMIN);
+        protectedUrls.put("/addItem", ADMIN);
+        protectedUrls.put("/getAllItems", USER);
+        protectedUrls.put("/userOrders", USER);
+        protectedUrls.put("/bucket", USER);
     }
 
     @Override
@@ -35,11 +40,9 @@ public class AuthorizationFilter implements Filter {
         HttpServletRequest req = (HttpServletRequest) servletRequest;
         HttpServletResponse resp = (HttpServletResponse) servletResponse;
 
+        String requestedUrl = req.getRequestURI().replace(req.getContextPath(), EMPTY_STRING);
 
-        Role.RoleName roleName = protectedUrls.get(req.getServletPath());// Check it roleNameAdmin and roleNameUser
-        Role.RoleName roleNameAdmin=protectedUrls.get(servletRequest); //requestUrl
-        Role.RoleName roleNameUser=protectedUrls.get(servletRequest); //requestUrl
-        Role.RoleName roleNameUser1=protectedUrls.get(servletRequest); //requestUrl
+        Role.RoleName roleName = protectedUrls.get(requestedUrl);
         if (roleName == null) {
             processAuthorization(filterChain, req, resp);
             return;
