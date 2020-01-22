@@ -8,6 +8,7 @@ import internetShop.dao.impl.BucketDaoImpl;
 import internetShop.dao.impl.ItemDaoImpl;
 import internetShop.dao.impl.OrderDaoImpl;
 import internetShop.dao.impl.UserDaoImpl;
+import internetShop.dao.jdbc.ItemDaoJdbcImpl;
 import internetShop.service.BucketService;
 import internetShop.service.ItemService;
 import internetShop.service.OrderService;
@@ -17,7 +18,39 @@ import internetShop.service.impl.ItemServiceImpl;
 import internetShop.service.impl.OrderServiceImpl;
 import internetShop.service.impl.UserServiceImpl;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.logging.Logger;
+
 public class Factory {
+    private static Logger logger=Logger.getLogger(String.valueOf(Factory.class));
+    private static Connection connection;
+    private static String DB_NAME = "internetshop";
+    private static String USER = "root";
+    private static String PASSWORD = "5522";
+    static {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + DB_NAME + "?"
+                    + "user=" + USER + "&password=" + PASSWORD);
+        } catch (ClassNotFoundException | SQLException e) {
+            System.out.println("Can't establish connection to our DB");
+        }
+    }
+
+    /*static {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            connection =
+                    DriverManager.getConnection( "jdbc:mysql://localhost:3306/internetshop"+
+                            "user=root&password=5522"); //&serverTimezone=UTC
+        } catch (ClassNotFoundException | SQLException e) {
+            System.out.println("Can't establish connection to our DB");
+            //logger.error ("Can't establish connection to our DB")
+        }
+    }*/
+
     private static ItemService itemServiceInstance;
     private static BucketService bucketServiceInstance;
     private static OrderService orderServiceInstance;
@@ -65,7 +98,7 @@ public class Factory {
 
     public static ItemDao getItemDao() {
         if (itemDaoInstance == null) {
-            itemDaoInstance = new ItemDaoImpl();
+            itemDaoInstance = new ItemDaoJdbcImpl(connection);
         }
         return itemDaoInstance;
     }
