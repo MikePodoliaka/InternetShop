@@ -17,6 +17,10 @@ public class Item {
         itemId=idGenerator++;
     }
 
+    public Item(Long itemId) {
+        this.itemId=itemId;
+    }
+
     public Long getItemId() {
         return itemId;
     }

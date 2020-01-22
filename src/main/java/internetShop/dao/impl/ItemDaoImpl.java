@@ -8,7 +8,7 @@ import internetShop.model.Item;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
-@Dao
+
 public class ItemDaoImpl implements ItemDao {
     @Override
     public Item create(Item item) {
