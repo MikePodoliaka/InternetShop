@@ -3,7 +3,6 @@ package internetShop.service.impl;
 import internetShop.exeptions.AuthorizationException;
 import internetShop.lib.Inject;
 import internetShop.lib.Service;
-import internetShop.dao.Storage;
 import internetShop.dao.UserDao;
 import internetShop.model.User;
 import internetShop.service.UserService;
@@ -48,7 +47,7 @@ return userDao.get(id).orElseThrow(()-> new NoSuchElementException("Can't find U
 
     @Override
     public List<User> getAll() {
-        return Storage.users;
+        return userDao.getAll();
     }
 
     @Override

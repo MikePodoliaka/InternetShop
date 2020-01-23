@@ -1,9 +1,5 @@
 package internetShop.controller;
 
-import internetShop.dao.jdbc.ItemDaoJdbcImpl;
-import internetShop.lib.Inject;
-import internetShop.service.ItemService;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;

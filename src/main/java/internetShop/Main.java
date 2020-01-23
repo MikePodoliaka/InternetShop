@@ -2,7 +2,7 @@ package internetShop;
 
 import internetShop.lib.Inject;
 import internetShop.lib.Injector;
-import internetShop.dao.Storage;
+
 import internetShop.model.Bucket;
 import internetShop.model.Item;
 import internetShop.model.User;

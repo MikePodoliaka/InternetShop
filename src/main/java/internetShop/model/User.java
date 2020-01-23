@@ -5,16 +5,15 @@ import java.util.List;
 import java.util.Set;
 
 public class User {
-    private static Long idGenerator = 0L;
     private Long userId;
     private String name;
     private String login;
     private String password;
     private String token;
     private Bucket userBucket;
-    private Set<Role> roles=new HashSet<>();
+    private Set<Role> roles = new HashSet<>();
 
-    public void addRole (Role role){
+    public void addRole(Role role) {
         roles.add(role);
     }
 
@@ -35,7 +34,12 @@ public class User {
     }
 
     public User() {
-        userId = idGenerator++;
+    }
+
+    public User(String name, String login, String password) {
+        this.name = name;
+        this.login = login;
+        this.password = password;
     }
 
     public Bucket getUserBucket() {

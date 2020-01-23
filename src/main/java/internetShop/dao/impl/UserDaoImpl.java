@@ -1,64 +1,113 @@
 package internetShop.dao.impl;
 
+import internetShop.dao.UserDao;
 import internetShop.exeptions.AuthorizationException;
 import internetShop.lib.Dao;
-import internetShop.dao.Storage;
-import internetShop.dao.UserDao;
 import internetShop.model.User;
 
-import java.util.NoSuchElementException;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Dao
-public class UserDaoImpl implements UserDao {
+public class UserDaoImpl extends AbstractDao<User> implements UserDao {
+    public UserDaoImpl(Connection connection) {
+        super(connection);
+    }
 
     @Override
     public User create(User user) {
-       Storage.users.add(user);
+        String query = String.format("insert into users (name,login,password) values('%s','%s','%s')",
+                user.getName(), user.getLogin(), user.getPassword());
+        try (Statement statement = connection.createStatement()) {
+            statement.executeUpdate(query);
+        } catch (SQLException e) {
+            System.out.println("Can't create user");
+        }
         return user;
     }
 
     @Override
-    public Optional<User> get(Long userId) {
-        return Optional.ofNullable(Storage.users.stream()
-                .filter(u -> u.getUserId().equals(userId))
-                .findFirst()
-                .orElseThrow(() -> new NoSuchElementException("Can't find user wit id  " + userId)));
+    public Optional<User> get(Long id) {
+        String query = String.format("SELECT * FROM users WHERE user_id=%d)", id);
+        try (Statement statement = connection.createStatement()) {
+            ResultSet resultSet = statement.executeQuery(query);
+            while (resultSet.next()) {
+                User user = new User();
+                resultSet.getString("name");
+                resultSet.getString("login");
+                resultSet.getString("password");
+                user.setUserId(resultSet.getLong("user_id"));
+
+                return Optional.of(user);
+            }
+        } catch (SQLException e) {
+            System.out.println("problem in getUserDao");
+        }
+        return Optional.empty(); //ОБРАТИТЬ ВНИМАНИЕ ЧТО ВОЗВРАЩАЕТ НЕ ЮЗЕР!!!
     }
 
     @Override
     public User update(User user) {
-       Optional<User> updateUser=get(user.getUserId());
-       updateUser.get().setName(user.getName());
-       updateUser.get().setLogin(user.getLogin());
-       updateUser.get().setPassword(user.getPassword());
+
+        String query = String.format("update users SATE name='%s', login='%s', password='%s' WHERE user_id=%d",
+                user.getName(), user.getLogin(), user.getPassword());
+        try (Statement statement = connection.createStatement()) {
+            statement.executeUpdate(query);
+        } catch (SQLException e) {
+            System.out.println("Can't update user");
+        }
         return user;
     }
 
     @Override
-    public void delete (Long userId) {
-        Storage.users.removeIf(u->u.getUserId().equals(userId));
+    public void delete(Long userId) {
+
+        String query = String.format("DELETE FROM users WHERE user_id=%d", userId);
+        try (Statement statement = connection.createStatement()) {
+            statement.executeUpdate(query);
+
+        } catch (SQLException e) {
+            System.out.println("Can't delete user");
+        }
     }
 
     @Override
     public boolean delete(User user) {
-        return Storage.users.remove(user);
+        return false;
+    }
+
+    @Override
+    public List<User> getAll() {
+        List<User> listUsers = new ArrayList<>();
+        String query = String.format("SELECT*FROM users");
+        try (Statement statement = connection.createStatement()) {
+            ResultSet resultSet = statement.executeQuery(query);
+            while (resultSet.next()) {
+                User user = new User(
+                        resultSet.getString("name"),
+                        resultSet.getString("login"),
+                        resultSet.getString("password"));
+                user.setUserId(resultSet.getLong("user_id"));
+                listUsers.add(user);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listUsers;
     }
 
     @Override
     public User login(String login, String password) throws AuthorizationException {
-        Optional<User> user=Storage.users.stream()
-                .filter(u->u.getLogin().equals(login)).findFirst();
-        if(user.isEmpty() || !user.get().getPassword().equals(password)){
-            throw new AuthorizationException("incorrect login or password");
-        }
-        return user.get();
+        return null;
     }
 
     @Override
     public Optional<User> getByToken(String token) {
-        return Storage.users.stream()
-                .filter(u->u.getToken().equals(token))
-                .findFirst();
+        return Optional.empty();
     }
 }

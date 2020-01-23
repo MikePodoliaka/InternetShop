@@ -1,43 +1,35 @@
 package internetShop.dao.impl;
 
-import internetShop.lib.Dao;
 import internetShop.dao.OrderDao;
-import internetShop.dao.Storage;
+import internetShop.lib.Dao;
 import internetShop.model.Order;
 
-import java.util.NoSuchElementException;
+import java.sql.Connection;
 import java.util.Optional;
 
 @Dao
-public class OrderDaoImpl implements OrderDao {
+public class OrderDaoImpl extends AbstractDao <Order>implements OrderDao {
+    public OrderDaoImpl(Connection connection) {
+        super(connection);
+    }
+
     @Override
     public Order create(Order order) {
-        Storage.orders.add(order);
-        return order;
+        return null;
     }
 
     @Override
     public Optional<Order> get(Long orderId) {
-        return Optional.ofNullable(Storage.orders.stream()
-                .filter(i -> i.getOrderId()
-                        .equals(orderId)).
-                        findFirst().orElseThrow(() ->
-                        new NoSuchElementException("Can't find order with Id " + orderId)));
+        return Optional.empty();
     }
 
     @Override
     public Optional<Order> update(Order order) {
-        Optional<Order> updateOrder=get(order.getOrderId());
-        updateOrder.get().setOrderId(order.getOrderId());
-        return updateOrder;
+        return Optional.empty();
     }
 
     @Override
     public boolean delete(Long orderId) {
-        Optional opOder = Optional.ofNullable(Storage.orders.stream()
-                .filter(i -> i.getOrderId().equals(orderId))
-                .findFirst());
-
-        return Storage.orders.remove(opOder);
+        return false;
     }
 }

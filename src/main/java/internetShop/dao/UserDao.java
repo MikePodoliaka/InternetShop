@@ -3,6 +3,7 @@ package internetShop.dao;
 import internetShop.exeptions.AuthorizationException;
 import internetShop.model.User;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface UserDao {
@@ -15,6 +16,8 @@ public interface UserDao {
     void delete(Long userId);
 
     boolean delete(User user);
+
+    List<User> getAll();
 
     User login(String login, String password) throws AuthorizationException;
 

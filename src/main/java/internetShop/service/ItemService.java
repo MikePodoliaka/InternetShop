@@ -14,7 +14,7 @@ public interface ItemService {
 
     void delete(Long id);
 
-    void delete(Item item);
+
 
     List<Item> getAllItems();
 

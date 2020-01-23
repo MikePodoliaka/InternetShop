@@ -3,7 +3,6 @@ package internetShop.service.impl;
 import internetShop.lib.Inject;
 import internetShop.lib.Service;
 import internetShop.dao.OrderDao;
-import internetShop.dao.Storage;
 import internetShop.model.Bucket;
 import internetShop.model.Item;
 import internetShop.model.Order;
@@ -50,8 +49,6 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<Order> getOrdersForUser(Long userID) {
-        return Storage.orders.stream()
-                .filter(i -> i.getOrderId().equals(userID))
-                .collect(Collectors.toList());
+        return null;
     }
 }
