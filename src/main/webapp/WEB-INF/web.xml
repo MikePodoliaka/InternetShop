@@ -13,7 +13,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>getAllItems</servlet-name>
-        <servlet-class>internetShop.controller.GetAllItemsController</servlet-class>
+        <servlet-class>internetShop.controller.item.GetAllItemsController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>getAllItems</servlet-name>
@@ -21,7 +21,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>registration</servlet-name>
-        <servlet-class>internetShop.controller.RegistrationController</servlet-class>
+        <servlet-class>internetShop.controller.user.RegistrationController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>registration</servlet-name>
@@ -29,7 +29,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>addItemToBucket</servlet-name>
-        <servlet-class>internetShop.controller.AddItemToBucketController</servlet-class>
+        <servlet-class>internetShop.controller.item.AddItemToBucketController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>addItemToBucket</servlet-name>
@@ -37,7 +37,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>bucket</servlet-name>
-        <servlet-class>internetShop.controller.CreateBucketController</servlet-class>
+        <servlet-class>internetShop.controller.bucket.CreateBucketController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>bucket</servlet-name>
@@ -45,7 +45,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>allUser</servlet-name>
-        <servlet-class>internetShop.controller.AllUserController</servlet-class>
+        <servlet-class>internetShop.controller.user.AllUserController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>allUser</servlet-name>
@@ -53,7 +53,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>deleteUser</servlet-name>
-        <servlet-class>internetShop.controller.DeleteUserController</servlet-class>
+        <servlet-class>internetShop.controller.user.DeleteUserController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>deleteUser</servlet-name>
@@ -61,7 +61,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>addItem</servlet-name>
-        <servlet-class>internetShop.controller.AddItemController</servlet-class>
+        <servlet-class>internetShop.controller.item.AddItemController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>addItem</servlet-name>
@@ -69,7 +69,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>Order</servlet-name>
-        <servlet-class>internetShop.controller.CompleteOrderController</servlet-class>
+        <servlet-class>internetShop.controller.order.CompleteOrderController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Order</servlet-name>
@@ -77,7 +77,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>Delete Item From Bucket</servlet-name>
-        <servlet-class>internetShop.controller.DeleteItemFromBucket</servlet-class>
+        <servlet-class>internetShop.controller.bucket.DeleteItemFromBucket</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Delete Item From Bucket</servlet-name>
@@ -85,7 +85,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>getOrderToUserId</servlet-name>
-        <servlet-class>internetShop.controller.GetAllUserOrdersController</servlet-class>
+        <servlet-class>internetShop.controller.order.GetAllUserOrdersController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>getOrderToUserId</servlet-name>
@@ -93,7 +93,7 @@
     </servlet-mapping>
 <servlet>
     <servlet-name>Login_Controller</servlet-name>
-    <servlet-class>internetShop.controller.LoginController</servlet-class>
+    <servlet-class>internetShop.controller.user.LoginController</servlet-class>
 </servlet>
     <servlet-mapping>
         <servlet-name>Login_Controller</servlet-name>
@@ -101,7 +101,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>DeleteOrder</servlet-name>
-        <servlet-class>internetShop.controller.DeleteOrderController</servlet-class>
+        <servlet-class>internetShop.controller.order.DeleteOrderController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>DeleteOrder</servlet-name>
@@ -117,7 +117,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>logoutController</servlet-name>
-        <servlet-class>internetShop.controller.LogoutController</servlet-class>
+        <servlet-class>internetShop.controller.user.LogoutController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>logoutController</servlet-name>

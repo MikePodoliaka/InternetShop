@@ -1,4 +1,4 @@
-package internetShop.controller;
+package internetShop.controller.item;
 
 import internetShop.lib.Inject;
 import internetShop.model.Bucket;

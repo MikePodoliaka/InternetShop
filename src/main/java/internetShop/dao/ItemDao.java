@@ -2,6 +2,7 @@ package internetShop.dao;
 
 import internetShop.model.Item;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface ItemDao {
@@ -14,5 +15,5 @@ public interface ItemDao {
 
     boolean delete(Long itemId);
 
-    Item delete(Item item);
+    List<Item> getAll();
 }

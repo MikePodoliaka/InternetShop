@@ -1,4 +1,4 @@
-package internetShop.controller;
+package internetShop.controller.user;
 
 import internetShop.exeptions.AuthorizationException;
 import internetShop.lib.Inject;

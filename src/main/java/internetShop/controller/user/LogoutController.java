@@ -1,4 +1,4 @@
-package internetShop.controller;
+package internetShop.controller.user;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.*;

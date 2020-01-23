@@ -3,8 +3,6 @@ package internetShop.model;
 import java.util.List;
 
 public class Order {
-    private static Long idGenerator=0L;
-
     private Long orderId;
     private Long userId;
     private List<Item> items;
@@ -19,11 +17,10 @@ public class Order {
 
     private Double amount;
 
-    public Order(List<Item> items, Long userId){
-        this.userId=userId;
-        this.items=items;
-        orderId=idGenerator++;
-    }
+    public Order(List<Item> items, Long userId) {
+        this.userId = userId;
+        this.items = items;
+           }
 
     public Long getOrderId() {
         return orderId;

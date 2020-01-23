@@ -8,7 +8,6 @@ import internetShop.dao.impl.BucketDaoImpl;
 import internetShop.dao.impl.ItemDaoImpl;
 import internetShop.dao.impl.OrderDaoImpl;
 import internetShop.dao.impl.UserDaoImpl;
-import internetShop.dao.jdbc.ItemDaoJdbcImpl;
 import internetShop.service.BucketService;
 import internetShop.service.ItemService;
 import internetShop.service.OrderService;
@@ -24,32 +23,20 @@ import java.sql.SQLException;
 import java.util.logging.Logger;
 
 public class Factory {
-    private static Logger logger=Logger.getLogger(String.valueOf(Factory.class));
+    private static Logger logger = Logger.getLogger(String.valueOf(Factory.class));
     private static Connection connection;
-    private static String DB_NAME = "internetshop";
+    private static String URL = "jdbc:mysql://localhost:3306/internetshop";
     private static String USER = "root";
     private static String PASSWORD = "5522";
+
     static {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/" + DB_NAME + "?"
-                    + "user=" + USER + "&password=" + PASSWORD);
+            connection = DriverManager.getConnection(URL,USER,PASSWORD);
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println("Can't establish connection to our DB");
         }
     }
-
-    /*static {
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            connection =
-                    DriverManager.getConnection( "jdbc:mysql://localhost:3306/internetshop"+
-                            "user=root&password=5522"); //&serverTimezone=UTC
-        } catch (ClassNotFoundException | SQLException e) {
-            System.out.println("Can't establish connection to our DB");
-            //logger.error ("Can't establish connection to our DB")
-        }
-    }*/
 
     private static ItemService itemServiceInstance;
     private static BucketService bucketServiceInstance;
@@ -89,7 +76,7 @@ public class Factory {
 
     public static BucketDao getBucketDao() {
         if (bucketDaoInstance == null) {
-            bucketDaoInstance = new BucketDaoImpl();
+            bucketDaoInstance = new BucketDaoImpl(connection);
         }
         return bucketDaoInstance;
     }
@@ -98,7 +85,7 @@ public class Factory {
 
     public static ItemDao getItemDao() {
         if (itemDaoInstance == null) {
-            itemDaoInstance = new ItemDaoJdbcImpl(connection);
+            itemDaoInstance = new ItemDaoImpl(connection);
         }
         return itemDaoInstance;
     }
@@ -107,7 +94,7 @@ public class Factory {
 
     public static OrderDao getOrderDao() {
         if (orderDaoInstance == null) {
-            orderDaoInstance = new OrderDaoImpl();
+            orderDaoInstance = new OrderDaoImpl(connection);
         }
         return orderDaoInstance;
     }
@@ -116,7 +103,7 @@ public class Factory {
 
     public static UserDao getUserDao() {
         if (userDaoInstance == null) {
-            userDaoInstance = new UserDaoImpl();
+            userDaoInstance = new UserDaoImpl(connection);
         }
         return userDaoInstance;
     }

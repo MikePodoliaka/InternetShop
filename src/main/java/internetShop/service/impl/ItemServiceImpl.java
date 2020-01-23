@@ -3,7 +3,6 @@ package internetShop.service.impl;
 import internetShop.lib.Inject;
 import internetShop.lib.Service;
 import internetShop.dao.ItemDao;
-import internetShop.dao.Storage;
 import internetShop.model.Item;
 import internetShop.service.ItemService;
 
@@ -24,7 +23,7 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public Item get(Long id) {
 
-        return itemDao.get(id).orElseThrow(()->new NoSuchElementException("Can't find item"));
+        return itemDao.get(id).orElseThrow(() -> new NoSuchElementException("Can't find item"));
     }
 
     @Override
@@ -38,13 +37,8 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public void delete(Item item) {
-        itemDao.delete(item);
-    }
-
-    @Override
     public List<Item> getAllItems() {
-        return Storage.items;
+        return itemDao.getAll();
     }
 
 

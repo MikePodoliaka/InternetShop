@@ -1,8 +1,6 @@
 package internetShop.model;
 
 public class Item {
-    private static Long idGenerator=0L;
-
     private Long itemId;
     private String name;
     private Double price;
@@ -11,14 +9,14 @@ public class Item {
     public Item(String name, Double price) {
         this.name = name;
         this.price = price;
-        itemId=idGenerator++;
-    }
-    public Item(){
-        itemId=idGenerator++;
     }
 
     public Item(Long itemId) {
-        this.itemId=itemId;
+        this.itemId = itemId;
+    }
+
+    public Item() {
+
     }
 
     public Long getItemId() {
