@@ -3,18 +3,19 @@ package internetShop.dao.impl;
 import internetShop.dao.UserDao;
 import internetShop.exeptions.AuthorizationException;
 import internetShop.lib.Dao;
+import internetShop.lib.Inject;
 import internetShop.model.User;
+import internetShop.service.ItemService;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Dao
 public class UserDaoImpl extends AbstractDao<User> implements UserDao {
+    @Inject
+
     public UserDaoImpl(Connection connection) {
         super(connection);
     }
@@ -33,9 +34,11 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
 
     @Override
     public Optional<User> get(Long id) {
-        String query = String.format("SELECT * FROM users WHERE user_id=%d)", id);
-        try (Statement statement = connection.createStatement()) {
-            ResultSet resultSet = statement.executeQuery(query);
+        String query = "SELECT * FROM users WHERE user_id=?;";
+
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setLong(1, id);
+            ResultSet resultSet=statement.executeQuery();
             while (resultSet.next()) {
                 User user = new User();
                 resultSet.getString("name");
@@ -103,11 +106,32 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
 
     @Override
     public User login(String login, String password) throws AuthorizationException {
-        return null;
+        String query = "SELECT * FROM users WHERE login=? and password=?;";
+
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, login);
+            statement.setString(2, password);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                long userId = resultSet.getLong("user_id");
+                String name = resultSet.getString("name");
+
+                User user = new User(userId);
+                user.setName(name);
+                user.setPassword(password);
+                user.setLogin(login);
+                return user;
+
+            }
+        } catch (SQLException e) {
+            System.out.println("Can't login user");
+        }
+        throw new AuthorizationException("Can't get user by login");
     }
 
     @Override
     public Optional<User> getByToken(String token) {
         return Optional.empty();
     }
+
 }

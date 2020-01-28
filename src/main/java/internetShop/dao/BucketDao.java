@@ -14,7 +14,7 @@ public interface BucketDao {
 
     Optional<Bucket> update(Bucket bucket);
 
-    boolean deleteById(Long bucketId);
+    void deleteById(Long bucketId);
 
     void delete(Long id);
 

@@ -7,6 +7,10 @@ public class Order {
     private Long userId;
     private List<Item> items;
 
+    public Order() {
+
+    }
+
     public Double getAmount() {
         return amount;
     }
@@ -20,7 +24,7 @@ public class Order {
     public Order(List<Item> items, Long userId) {
         this.userId = userId;
         this.items = items;
-           }
+    }
 
     public Long getOrderId() {
         return orderId;

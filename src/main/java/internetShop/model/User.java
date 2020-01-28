@@ -13,6 +13,9 @@ public class User {
     private Bucket userBucket;
     private Set<Role> roles = new HashSet<>();
 
+    public User(long userId) {
+    }
+
     public void addRole(Role role) {
         roles.add(role);
     }

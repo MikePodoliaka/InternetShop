@@ -13,7 +13,7 @@ public interface BucketService {
 
     Optional<Bucket> update(Bucket bucket);
 
-    boolean delete(Long bucketId);
+    void delete(Long bucketId);
 
 
 
