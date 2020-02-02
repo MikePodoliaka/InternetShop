@@ -48,5 +48,5 @@ Add sdk 11.0.3 in project struсture.
 
 ##### By default there are one user with an USER role (login = "user1", password = "123") and one with an ADMIN role (login = "admin1", password = "123").
 
-#### Author
-##### Mike Podoliaka
+## Author
+#### Mike Podoliaka
