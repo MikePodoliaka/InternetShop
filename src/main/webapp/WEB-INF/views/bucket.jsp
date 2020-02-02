@@ -1,46 +1,43 @@
-<jsp:useBean id="bucket" scope="request" type="internetShop.model.Bucket"/>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<jsp:useBean id="bucket" scope="request" type="internetshop.model.Bucket"/>
+
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>Bucket</title>
+    <style>
+        <%@include file='/style/style.css'%>
+    </style>
 </head>
 <body>
-<br>
-<a href="${pageContext.request.contextPath}/getAllItems">Go back to items</a>
-</br>
-Bucket:
+bucket id : ${bucket.bucketId}
 <table border="1">
     <tr>
-        <th>Id</th>
         <th>Name</th>
         <th>Price</th>
-        <th>Delete</th>
+        <th>DELETED</th>
     </tr>
     <c:forEach var="item" items="${bucket.items}">
         <tr>
             <td>
-                <c:out value="${item.itemId}"/>
+                <c:out value="${item.name}" />
             </td>
             <td>
-                <c:out value="${item.name}"/>
+                <c:out value="${item.price}" />
             </td>
             <td>
-                <c:out value="${item.price}"/>
+                <a href="${pageContext.request.contextPath}/servlet/deleteItemFromBucket?item_id=${item.id}">DELETE</a>
             </td>
-            <td>
-                <a href="/internetShopPM_war_exploded/deleteItem?item_id=${item.itemId}">DELETE</a>
-            </td>
-
         </tr>
     </c:forEach>
 </table>
 <br>
-<a href="${pageContext.request.contextPath}/order">Complete Order</a>
-</br>
-<br>
-<a href="${pageContext.request.contextPath}/index">Back to main</a>
-</br>
-</body>
+<form action="${pageContext.request.contextPath}/servlet/completeOrder">
+    <button type="submit">CHECKOUT</button>
+</form>
+<form action="${pageContext.request.contextPath}/menu">
+    <button type="submit">MENU</button>
+</form>
 </html>

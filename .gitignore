@@ -1,3 +1,4 @@
-.idea
-internetShopPM.iml
-target
+.idea/*
+*.iml
+target/*
+/log/
