@@ -1,0 +1,6 @@
+2020-02-02 18:12:27 INFO  InjectInitializer:15 - Start injectionDependency
+2020-02-02 18:21:01 INFO  InjectInitializer:15 - Start injectionDependency
+2020-02-02 19:43:45 INFO  InjectInitializer:15 - Start injectionDependency
+2020-02-02 19:48:32 ERROR RegistrationController:42 - internetshop.exceptions.DataProcessingExeption: Can't create user with login = User1
+2020-02-02 19:49:51 INFO  InjectInitializer:15 - Start injectionDependency
+2020-02-02 19:55:26 INFO  InjectInitializer:15 - Start injectionDependency

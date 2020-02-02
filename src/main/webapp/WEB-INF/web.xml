@@ -3,14 +3,6 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
 		 http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
-    <servlet>
-        <servlet-name>index</servlet-name>
-        <servlet-class>internetshop.controller.IndexController</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>index</servlet-name>
-        <url-pattern>/servlet/index</url-pattern>
-    </servlet-mapping>
 
     <servlet>
         <servlet-name>allUsers</servlet-name>
@@ -151,16 +143,7 @@
         <url-pattern>/logout</url-pattern>
     </servlet-mapping>
 
-    <servlet>
-        <servlet-name>injectDefaultUsers</servlet-name>
-        <servlet-class>internetshop.controller.InjectDefaultUsersController</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>injectDefaultUsers</servlet-name>
-        <url-pattern>/injectDefaultUsers</url-pattern>
-    </servlet-mapping>
-
-    <filter>
+   <filter>
         <filter-name>authentication-filter</filter-name>
         <filter-class>internetshop.web.filters.AuthenticationFilter</filter-class>
     </filter>

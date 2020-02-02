@@ -4,9 +4,6 @@
 <html>
 <head>
     <title>Added item</title>
-    <style>
-        <%@include file='/style/style.css'%>
-    </style>
 </head>
 <body>
 ADDED ITEM:

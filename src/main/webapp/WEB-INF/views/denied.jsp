@@ -2,9 +2,6 @@
 <html>
 <head>
     <title>Access enied</title>
-    <style>
-        <%@include file='/style/style.css'%>
-    </style>
 </head>
 <body>
 <h1>Sorry, requested page is denied for you!</h1>

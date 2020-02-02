@@ -2,9 +2,7 @@
 <html>
 <head>
     <title>MENU</title>
-    <style>
-        <%@include file='/style/style.css'%>
-    </style>
+
 </head>
 <body>
 <form action="${pageContext.request.contextPath}/login">
