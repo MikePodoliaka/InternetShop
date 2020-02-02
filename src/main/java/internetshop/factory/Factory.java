@@ -22,7 +22,7 @@ import internetshop.service.impl.OrderServiceImpl;
 import internetshop.service.impl.UserServiceImpl;
 import org.apache.log4j.Logger;
 
-public class DaoAndServiceFactory {
+public class Factory {
     private static BucketDao bucketDaoInstance;
     private static ItemDao itemDaoInstance;
     private static OrderDao orderDaoInstance;
@@ -34,7 +34,7 @@ public class DaoAndServiceFactory {
     private static UserService userServiceInstance;
 
     private static Connection connection;
-    private static final Logger LOGGER = Logger.getLogger(DaoAndServiceFactory.class);
+    private static final Logger LOGGER = Logger.getLogger(Factory.class);
 
     static {
         try {

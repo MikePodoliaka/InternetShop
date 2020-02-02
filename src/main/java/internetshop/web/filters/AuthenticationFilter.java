@@ -21,7 +21,7 @@ public class AuthenticationFilter implements Filter {
     @Inject
     private static UserService userService;
 
-    private Logger logger = Logger.getLogger(AuthenticationFilter.class);
+    private static Logger logger = Logger.getLogger(AuthenticationFilter.class);
 
     @Override
     public void init(FilterConfig filterConfig){
