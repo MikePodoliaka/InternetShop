@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import internetshop.exceptions.DataProcessingExeption;
+import internetshop.exceptions.DataProcessingException;
 import internetshop.lib.anotations.Inject;
 import internetshop.model.User;
 import internetshop.service.UserService;
@@ -25,9 +25,9 @@ public class GetAllUsersController extends HttpServlet {
         List<User> userList = null;
         try {
             userList = userService.getAll();
-        } catch (DataProcessingExeption dataProcessingExeption) {
-            logger.error(dataProcessingExeption);
-            req.setAttribute("errorMsg", dataProcessingExeption.getMessage());
+        } catch (DataProcessingException dataProcessingException) {
+            logger.error(dataProcessingException);
+            req.setAttribute("errorMsg", dataProcessingException.getMessage());
             req.getRequestDispatcher("/WEB-INF/views/error.jsp").forward(req, resp);
         }
         req.setAttribute("users", userList);

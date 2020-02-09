@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import internetshop.exceptions.AuthenticationException;
-import internetshop.exceptions.DataProcessingExeption;
+import internetshop.exceptions.DataProcessingException;
 import internetshop.lib.anotations.Inject;
 import internetshop.model.User;
 import internetshop.service.UserService;
@@ -39,9 +39,9 @@ public class LoginController extends HttpServlet {
         } catch (AuthenticationException e) {
             req.setAttribute("errorMsg", "Incorrect login or password");
             req.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(req, resp);
-        } catch (DataProcessingExeption dataProcessingExeption) {
-            logger.error(dataProcessingExeption);
-            req.setAttribute("errorMsg", dataProcessingExeption.getMessage());
+        } catch (DataProcessingException dataProcessingException) {
+            logger.error(dataProcessingException);
+            req.setAttribute("errorMsg", dataProcessingException.getMessage());
             req.getRequestDispatcher("/WEB-INF/views/error.jsp").forward(req, resp);
         }
     }

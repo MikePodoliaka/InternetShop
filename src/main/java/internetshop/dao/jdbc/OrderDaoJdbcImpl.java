@@ -11,7 +11,7 @@ import java.util.Locale;
 import java.util.Optional;
 
 import internetshop.dao.OrderDao;
-import internetshop.exceptions.DataProcessingExeption;
+import internetshop.exceptions.DataProcessingException;
 import internetshop.lib.anotations.Dao;
 import internetshop.model.Item;
 import internetshop.model.Order;
@@ -26,7 +26,7 @@ public class OrderDaoJdbcImpl extends AbcstractDao<Order> implements OrderDao {
     }
 
     @Override
-    public Order create(Order entity) throws DataProcessingExeption {
+    public Order create(Order entity) throws DataProcessingException {
         String insertOrderQuery = String.format(Locale.ROOT,
                 "INSERT INTO %s.orders (user_id) VALUES (?)",
                 DB_NAME);
@@ -41,7 +41,7 @@ public class OrderDaoJdbcImpl extends AbcstractDao<Order> implements OrderDao {
                 }
             }
         } catch (SQLException e) {
-            throw new DataProcessingExeption("Can't create order with user_id = "
+            throw new DataProcessingException("Can't create order with user_id = "
                     + entity.getUserId(), e);
         }
         addItemsIntoOrdersItemsTable(entity);
@@ -49,7 +49,7 @@ public class OrderDaoJdbcImpl extends AbcstractDao<Order> implements OrderDao {
     }
 
     @Override
-    public Optional<Order> get(Long entityId) throws DataProcessingExeption {
+    public Optional<Order> get(Long entityId) throws DataProcessingException {
         String query = String.format(Locale.ROOT,
                 "select orders.order_id, orders.user_id, items.item_id, items.name, items.price\n"
                         + "from %1$s.orders\n"
@@ -75,13 +75,13 @@ public class OrderDaoJdbcImpl extends AbcstractDao<Order> implements OrderDao {
             }
             return Optional.ofNullable(order);
         } catch (SQLException e) {
-            throw new DataProcessingExeption("Can't create order with order_id = "
+            throw new DataProcessingException("Can't create order with order_id = "
                     + entityId, e);
         }
     }
 
     @Override
-    public Order update(Order entity) throws DataProcessingExeption {
+    public Order update(Order entity) throws DataProcessingException {
         String updateOrderQuery = String.format(Locale.ROOT,
                 "UPDATE %s.orders SET user_id = ? WHERE (order_id = ?)", DB_NAME);
         try (PreparedStatement preparedStatement
@@ -99,14 +99,14 @@ public class OrderDaoJdbcImpl extends AbcstractDao<Order> implements OrderDao {
             preparedStatement.setLong(1, entity.getOrderId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DataProcessingExeption("Can't update order with order_id = "
+            throw new DataProcessingException("Can't update order with order_id = "
                     + entity.getOrderId(), e);
         }
         addItemsIntoOrdersItemsTable(entity);
         return entity;
     }
 
-    private void addItemsIntoOrdersItemsTable(Order entity) throws DataProcessingExeption {
+    private void addItemsIntoOrdersItemsTable(Order entity) throws DataProcessingException {
         String insertOrderItemQuery = String.format("INSERT INTO %s.orders_items "
                 + "(order_id, item_id) VALUES (?, ?)", DB_NAME);
         try (PreparedStatement preparedStatement
@@ -117,13 +117,13 @@ public class OrderDaoJdbcImpl extends AbcstractDao<Order> implements OrderDao {
                 preparedStatement.executeUpdate();
             }
         } catch (SQLException e) {
-            throw new DataProcessingExeption("Can't add items to orders_items with order_id = "
+            throw new DataProcessingException("Can't add items to orders_items with order_id = "
                     + entity.getOrderId(), e);
         }
     }
 
     @Override
-    public boolean deleteById(Long entityId) throws DataProcessingExeption {
+    public boolean deleteById(Long entityId) throws DataProcessingException {
         String query = String.format(" delete orders, orders_items from %1$s.orders\n"
                 + "left join %1$s.orders_items using(order_id)\n"
                 + "where order_id = ?", DB_NAME);
@@ -132,18 +132,18 @@ public class OrderDaoJdbcImpl extends AbcstractDao<Order> implements OrderDao {
             preparedStatement.executeUpdate();
             return true;
         } catch (SQLException e) {
-            throw new DataProcessingExeption("Can't delete order with order_id = "
+            throw new DataProcessingException("Can't delete order with order_id = "
                     + entityId, e);
         }
     }
 
     @Override
-    public boolean delete(Order entity) throws DataProcessingExeption {
+    public boolean delete(Order entity) throws DataProcessingException {
         return deleteById(entity.getOrderId());
     }
 
     @Override
-    public List<Order> getAll() throws DataProcessingExeption {
+    public List<Order> getAll() throws DataProcessingException {
         String getAllOrdersQuery = String.format(Locale.ROOT,
                 "select orders.order_id, orders.user_id, items.item_id, items.name, items.price\n"
                         + "from %1$s.orders\n"
@@ -155,12 +155,12 @@ public class OrderDaoJdbcImpl extends AbcstractDao<Order> implements OrderDao {
             ResultSet resultSet = preparedStatement.executeQuery();
             return getOrders(resultSet);
         } catch (SQLException e) {
-            throw new DataProcessingExeption("Can't get all orders", e);
+            throw new DataProcessingException("Can't get all orders", e);
         }
     }
 
     @Override
-    public List<Order> getUserOrders(User user) throws DataProcessingExeption {
+    public List<Order> getUserOrders(User user) throws DataProcessingException {
         String getOrderQuery = String.format(Locale.ROOT,
                 "select orders.order_id, orders.user_id, items.item_id, items.name, items.price\n"
                         + "from %1$s.orders\n"
@@ -173,7 +173,7 @@ public class OrderDaoJdbcImpl extends AbcstractDao<Order> implements OrderDao {
             preparedStatement.setLong(1, user.getId());
             return getOrders(preparedStatement.executeQuery());
         } catch (SQLException e) {
-            throw new DataProcessingExeption("Can't get all orders for user  with user_id = "
+            throw new DataProcessingException("Can't get all orders for user  with user_id = "
                     + user.getId(), e);
         }
     }
