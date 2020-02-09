@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import internetshop.exceptions.DataProcessingExeption;
+import internetshop.exceptions.DataProcessingException;
 import internetshop.lib.anotations.Inject;
 import internetshop.model.Role;
 import internetshop.model.User;
@@ -39,9 +39,9 @@ public class RegistrationController extends HttpServlet {
             User user = userService.create(newUser);
             HttpSession session = req.getSession(true);
             session.setAttribute("userId", user.getId());
-        } catch (DataProcessingExeption dataProcessingExeption) {
-            logger.error(dataProcessingExeption);
-            req.setAttribute("errorMsg", dataProcessingExeption.getMessage());
+        } catch (DataProcessingException dataProcessingException) {
+            logger.error(dataProcessingException);
+            req.setAttribute("errorMsg", dataProcessingException.getMessage());
             req.getRequestDispatcher("/WEB-INF/views/error.jsp").forward(req, resp);
         }
         resp.sendRedirect(req.getContextPath() + "/menu");

@@ -12,7 +12,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import internetshop.exceptions.DataProcessingExeption;
+import internetshop.exceptions.DataProcessingException;
 import internetshop.lib.anotations.Inject;
 import internetshop.service.UserService;
 import org.apache.log4j.Logger;
@@ -43,9 +43,9 @@ public class AuthenticationFilter implements Filter {
             chain.doFilter(request, response);
         } catch (NoSuchElementException e) {
             processUnAuthenticated(req, resp);
-        } catch (DataProcessingExeption dataProcessingExeption) {
-            logger.error(dataProcessingExeption);
-            req.setAttribute("errorMsg", dataProcessingExeption.getMessage());
+        } catch (DataProcessingException dataProcessingException) {
+            logger.error(dataProcessingException);
+            req.setAttribute("errorMsg", dataProcessingException.getMessage());
             req.getRequestDispatcher("/WEB-INF/views/error.jsp").forward(req, resp);
         }
 

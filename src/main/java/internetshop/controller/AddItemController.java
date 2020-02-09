@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import internetshop.exceptions.DataProcessingExeption;
+import internetshop.exceptions.DataProcessingException;
 import internetshop.lib.anotations.Inject;
 import internetshop.model.Item;
 import internetshop.service.ItemService;
@@ -32,9 +32,9 @@ public class AddItemController extends HttpServlet {
         item.setPrice(Double.valueOf(req.getParameter("price")));
         try {
             itemService.create(item);
-        } catch (DataProcessingExeption dataProcessingExeption) {
-            logger.error(dataProcessingExeption);
-            req.setAttribute("errorMsg", dataProcessingExeption.getMessage());
+        } catch (DataProcessingException dataProcessingException) {
+            logger.error(dataProcessingException);
+            req.setAttribute("errorMsg", dataProcessingException.getMessage());
             req.getRequestDispatcher("/WEB-INF/views/error.jsp").forward(req, resp);
         }
         req.setAttribute("item", item);

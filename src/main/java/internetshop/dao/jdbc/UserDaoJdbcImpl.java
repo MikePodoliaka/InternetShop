@@ -11,7 +11,7 @@ import java.util.Locale;
 import java.util.Optional;
 import java.util.Set;
 import internetshop.dao.UserDao;
-import internetshop.exceptions.DataProcessingExeption;
+import internetshop.exceptions.DataProcessingException;
 import internetshop.lib.anotations.Dao;
 import internetshop.model.Role;
 import internetshop.model.User;
@@ -25,7 +25,7 @@ public class UserDaoJdbcImpl extends AbcstractDao<User> implements UserDao {
     }
 
     @Override
-    public Optional<User> findByLogin(String login) throws DataProcessingExeption {
+    public Optional<User> findByLogin(String login) throws DataProcessingException {
         String query = String.format("select users.user_id, users.name, "
                 + "users.surname, users.login, users.password, users.salt,\n"
                 + "roles.role_name, roles.role_id\n"
@@ -37,12 +37,12 @@ public class UserDaoJdbcImpl extends AbcstractDao<User> implements UserDao {
             preparedStatement.setString(1, login);
             return getUser(preparedStatement);
         } catch (SQLException e) {
-            throw new DataProcessingExeption("Can't get user with login = " + login, e);
+            throw new DataProcessingException("Can't get user with login = " + login, e);
         }
     }
 
     private Optional<User> getUser(PreparedStatement preparedStatement)
-            throws DataProcessingExeption {
+            throws DataProcessingException {
         ResultSet resultSet = null;
         try {
             resultSet = preparedStatement.executeQuery();
@@ -63,12 +63,12 @@ public class UserDaoJdbcImpl extends AbcstractDao<User> implements UserDao {
             }
             return Optional.ofNullable(user);
         } catch (SQLException e) {
-            throw new DataProcessingExeption("Can't get user", e);
+            throw new DataProcessingException("Can't get user", e);
         }
     }
 
     @Override
-    public User create(User entity) throws DataProcessingExeption {
+    public User create(User entity) throws DataProcessingException {
         String insertUserQuery = String.format("insert into %s.users "
                 + "(name, surname, login, password, salt) values (?, ?, ?, ?, ?)", DB_NAME);
         try (PreparedStatement preparedStatement
@@ -86,14 +86,14 @@ public class UserDaoJdbcImpl extends AbcstractDao<User> implements UserDao {
                 }
             }
         } catch (SQLException e) {
-            throw new DataProcessingExeption("Can't create user with login = "
+            throw new DataProcessingException("Can't create user with login = "
                     + entity.getLogin(),  e);
         }
         entity.setRoles(addRoles(entity.getRoles(), entity.getId()));
         return entity;
     }
 
-    private Set<Role> addRoles(Set<Role> roles, Long userId) throws DataProcessingExeption {
+    private Set<Role> addRoles(Set<Role> roles, Long userId) throws DataProcessingException {
         for (Role role : roles) {
             String getRoleIdQuery = String.format("select role_id from %s.roles "
                     + "where role_name = ?", DB_NAME);
@@ -105,7 +105,7 @@ public class UserDaoJdbcImpl extends AbcstractDao<User> implements UserDao {
                     role.setId(resultSet.getLong("role_id"));
                 }
             } catch (SQLException e) {
-                throw new DataProcessingExeption("Can't add roles for user with user_id="
+                throw new DataProcessingException("Can't add roles for user with user_id="
                         + userId, e);
             }
 
@@ -117,7 +117,7 @@ public class UserDaoJdbcImpl extends AbcstractDao<User> implements UserDao {
                 preparedStatement.setLong(2, role.getId());
                 preparedStatement.executeUpdate();
             } catch (SQLException e) {
-                throw new DataProcessingExeption("Can't add roles to users_roles with user_id = "
+                throw new DataProcessingException("Can't add roles to users_roles with user_id = "
                         + userId, e);
             }
         }
@@ -125,7 +125,7 @@ public class UserDaoJdbcImpl extends AbcstractDao<User> implements UserDao {
     }
 
     @Override
-    public Optional<User> get(Long entityId) throws DataProcessingExeption {
+    public Optional<User> get(Long entityId) throws DataProcessingException {
         String query = String.format("select users.user_id, users.name, "
                 + "users.surname, users.login, users.password, users.salt,\n"
                 + "roles.role_name, roles.role_id\n"
@@ -137,13 +137,13 @@ public class UserDaoJdbcImpl extends AbcstractDao<User> implements UserDao {
             preparedStatement.setLong(1, entityId);
             return getUser(preparedStatement);
         } catch (SQLException e) {
-            throw new DataProcessingExeption("Can't get user with user_id = "
+            throw new DataProcessingException("Can't get user with user_id = "
                     + entityId,  e);
         }
     }
 
     @Override
-    public User update(User entity) throws DataProcessingExeption {
+    public User update(User entity) throws DataProcessingException {
         String updateUserQuery = String.format("update %s.users set name = ?, "
                 + "surname = ?, login = ?, password = ?, salt = ?\n"
                 + "where user_id = ?", DB_NAME);
@@ -165,7 +165,7 @@ public class UserDaoJdbcImpl extends AbcstractDao<User> implements UserDao {
             preparedStatement.setLong(1, entity.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DataProcessingExeption("Can't update user with user_id = "
+            throw new DataProcessingException("Can't update user with user_id = "
                     + entity.getId(),  e);
         }
         entity.setRoles(addRoles(entity.getRoles(), entity.getId()));
@@ -173,7 +173,7 @@ public class UserDaoJdbcImpl extends AbcstractDao<User> implements UserDao {
     }
 
     @Override
-    public boolean deleteById(Long entityId) throws DataProcessingExeption {
+    public boolean deleteById(Long entityId) throws DataProcessingException {
         String query = String.format(" delete users, users_roles from %1$s.users\n"
                 + "left join %1$s.users_roles using(user_id)\n"
                 + "where user_id = ?", DB_NAME);
@@ -182,18 +182,18 @@ public class UserDaoJdbcImpl extends AbcstractDao<User> implements UserDao {
             preparedStatement.executeUpdate();
             return true;
         } catch (SQLException e) {
-            throw new DataProcessingExeption("Can't delete user with user_id = "
+            throw new DataProcessingException("Can't delete user with user_id = "
                     + entityId, e);
         }
     }
 
     @Override
-    public boolean delete(User entity) throws DataProcessingExeption {
+    public boolean delete(User entity) throws DataProcessingException {
         return deleteById(entity.getId());
     }
 
     @Override
-    public List<User> getAll() throws DataProcessingExeption {
+    public List<User> getAll() throws DataProcessingException {
         String getAllUsersQuery = String.format(Locale.ROOT,
                 "select users.user_id, users.name, users.surname, users.login, users.password, "
                         + "users.salt, roles.role_name, roles.role_id\n"
@@ -206,11 +206,11 @@ public class UserDaoJdbcImpl extends AbcstractDao<User> implements UserDao {
             ResultSet resultSet = preparedStatement.executeQuery();
             return getUsers(resultSet);
         } catch (SQLException e) {
-            throw new DataProcessingExeption("Can't get all users", e);
+            throw new DataProcessingException("Can't get all users", e);
         }
     }
 
-    private List<User> getUsers(ResultSet resultSet) throws DataProcessingExeption {
+    private List<User> getUsers(ResultSet resultSet) throws DataProcessingException {
         List<User> userListResult = new ArrayList<>();
         try {
             User user = null;
@@ -238,7 +238,7 @@ public class UserDaoJdbcImpl extends AbcstractDao<User> implements UserDao {
                 userListResult.add(user);
             }
         } catch (SQLException e) {
-            throw new DataProcessingExeption("Can't get users", e);
+            throw new DataProcessingException("Can't get users", e);
         }
         return userListResult;
     }

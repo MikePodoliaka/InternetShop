@@ -2,18 +2,18 @@ package internetshop.service;
 
 import java.util.List;
 
-import internetshop.exceptions.DataProcessingExeption;
+import internetshop.exceptions.DataProcessingException;
 
 public interface GenericService<T, I> {
-    T create(T entity) throws DataProcessingExeption;
+    T create(T entity) throws DataProcessingException;
 
-    T get(I entityId) throws DataProcessingExeption;
+    T get(I entityId) throws DataProcessingException;
 
-    T update(T entity) throws DataProcessingExeption;
+    T update(T entity) throws DataProcessingException;
 
-    boolean deleteById(I entityId) throws DataProcessingExeption;
+    boolean deleteById(I entityId) throws DataProcessingException;
 
-    boolean delete(T entity) throws DataProcessingExeption;
+    boolean delete(T entity) throws DataProcessingException;
 
-    List<T> getAll() throws DataProcessingExeption;
+    List<T> getAll() throws DataProcessingException;
 }

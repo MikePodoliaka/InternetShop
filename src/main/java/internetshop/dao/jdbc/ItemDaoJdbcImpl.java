@@ -11,7 +11,7 @@ import java.util.Locale;
 import java.util.Optional;
 
 import internetshop.dao.ItemDao;
-import internetshop.exceptions.DataProcessingExeption;
+import internetshop.exceptions.DataProcessingException;
 import internetshop.lib.anotations.Dao;
 import internetshop.model.Item;
 
@@ -24,7 +24,7 @@ public class ItemDaoJdbcImpl extends AbcstractDao<Item> implements ItemDao {
     }
 
     @Override
-    public Item create(Item entity) throws DataProcessingExeption {
+    public Item create(Item entity) throws DataProcessingException {
         String query = String.format(Locale.ROOT,
                 "insert into %s.items (name, price) values (?, ?)", DB_NAME);
         try (PreparedStatement preparedStatement
@@ -38,13 +38,13 @@ public class ItemDaoJdbcImpl extends AbcstractDao<Item> implements ItemDao {
                 }
             }
         } catch (SQLException e) {
-            throw new DataProcessingExeption("Can't create item", e);
+            throw new DataProcessingException("Can't create item", e);
         }
         return entity;
     }
 
     @Override
-    public Optional<Item> get(Long entityId) throws DataProcessingExeption {
+    public Optional<Item> get(Long entityId) throws DataProcessingException {
         String query = String.format("select * from %s.items where item_id=?",  DB_NAME);
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setLong(1, entityId);
@@ -54,14 +54,14 @@ public class ItemDaoJdbcImpl extends AbcstractDao<Item> implements ItemDao {
                 return Optional.of(item);
             }
         } catch (SQLException e) {
-            throw new DataProcessingExeption("Can't get item  with id = "
+            throw new DataProcessingException("Can't get item  with id = "
                     + entityId, e);
         }
         return Optional.empty();
     }
 
     @Override
-    public Item update(Item entity) throws DataProcessingExeption {
+    public Item update(Item entity) throws DataProcessingException {
         String query = String.format(Locale.ROOT,
                 "UPDATE %s.items SET name=?, price=? WHERE item_id=?",
                 DB_NAME);
@@ -72,14 +72,14 @@ public class ItemDaoJdbcImpl extends AbcstractDao<Item> implements ItemDao {
             preparedStatement.setLong(3, entity.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DataProcessingExeption("Can't update item with id = "
+            throw new DataProcessingException("Can't update item with id = "
                     + entity.getId(), e);
         }
         return entity;
     }
 
     @Override
-    public boolean deleteById(Long entityId) throws DataProcessingExeption {
+    public boolean deleteById(Long entityId) throws DataProcessingException {
         String query = String.format("delete from %s.items\n"
                 + "where item_id = ?", DB_NAME);
         try (PreparedStatement preparedStatement
@@ -88,18 +88,18 @@ public class ItemDaoJdbcImpl extends AbcstractDao<Item> implements ItemDao {
             preparedStatement.executeUpdate();
             return true;
         } catch (SQLException e) {
-            throw new DataProcessingExeption("Can't delete item with id = "
+            throw new DataProcessingException("Can't delete item with id = "
                     + entityId, e);
         }
     }
 
     @Override
-    public boolean delete(Item entity) throws DataProcessingExeption {
+    public boolean delete(Item entity) throws DataProcessingException {
         return deleteById(entity.getId());
     }
 
     @Override
-    public List<Item> getAll() throws DataProcessingExeption {
+    public List<Item> getAll() throws DataProcessingException {
         List<Item> itemList = new ArrayList<>();
         String query = String.format("select * from %s.items",  DB_NAME);
         try (Statement statement = connection.createStatement()) {
@@ -109,7 +109,7 @@ public class ItemDaoJdbcImpl extends AbcstractDao<Item> implements ItemDao {
                 itemList.add(item);
             }
         } catch (SQLException e) {
-            throw new DataProcessingExeption("Can't get all items", e);
+            throw new DataProcessingException("Can't get all items", e);
         }
         return itemList;
     }
