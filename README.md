@@ -32,21 +32,10 @@
 ##### maven-checkstyle-plugin
 ##### mysql-connector-java 8.0.18
 ### For developer
-Open the project in your IDE.
-
-Add it as maven project.
-
-Configure Tomcat:
-
-add artifact
-
-add sdk 11.0.3
-
-Add sdk 11.0.3 in project struсture.
 
 ##### Use file "/src/main/resources/init.sql" to create schema and all the tables required by this app in MySQL database.
 
 ##### By default there are one user with an USER role (login = "user1", password = "123") and one with an ADMIN role (login = "admin1", password = "123").
 
 ## Author
-#### Mike Podoliaka
+### Mike Podoliaka
